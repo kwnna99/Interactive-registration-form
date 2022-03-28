@@ -289,35 +289,39 @@ paymentChoices.addEventListener('change',e=>{
  * submission is prevented and the view scrolls to the field that has the error.
  */
 document.querySelector('form').addEventListener('submit',e=>{
+    let invalid=false;
+    let errorList=[];
     if(!validateName()){
-        e.preventDefault();
-        scrollToError(nameField.parentElement);
-        return false;
-    }else if(!validateEmail()){
-        e.preventDefault();
-        scrollToError(emailField.parentElement);
-        return false;
-    }else if(!validateActivities()){
-        e.preventDefault();
-        scrollToError(availableActivities);
-        return false;
+        invalid=true;
+        errorList.push(nameField.parentElement);
+    }
+    
+    if(!validateEmail()){
+        invalid=true;
+        errorList.push(emailField.parentElement);
+    }
+    
+    if(!validateActivities()){
+        invalid=true;
+        errorList.push(availableActivities);
     }
     if(paymentChoices.value==='credit-card'){
         if(!validateCardNumber()){
-            e.preventDefault();
-            scrollToError(cardNumber.parentElement);
-            return false;
-        }else if(!validateZip()){
-            e.preventDefault();
-            scrollToError(zip.parentElement);
-            return false;
-        }else if(!validateCvv()){
-            e.preventDefault();
-            scrollToError(cvv.parentElement);
-            return false;
+            invalid=true;
+            errorList.push(cardNumber);
+        }
+        if(!validateZip()){
+            errorList.push(zip.parentElement);
+        }
+        if(!validateCvv()){
+            invalid=true;
+            errorList.push(cvv.parentElement);
         }
     }
-    return true;
+    if(invalid){
+        scrollToError(errorList[0]);
+        e.preventDefault();
+    }
 });
 
 /**
