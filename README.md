@@ -13,6 +13,9 @@ The name field must consist of at least 2 words (separated by a whitespace). It 
 ### Email
 The email follows the regular validation rules, in the format of x@y.z. It cannot be empty or atypical.
 
+### Activities
+After the first interaction, we check if at least one activity has been selected. Also, we disable all other activities that are on the same time that a chosen activity occurs. If an activity is unchecked, all the activities that were disabled because of it become unchecked.
+
 ### Credit card number
 The credit card number is a stream of 13-16 digits and cannot be empty nor contain letters. If the user enters a letter, they receive a specific error message, else they receive a generic message about the overall desired formatting of the field. 
 
